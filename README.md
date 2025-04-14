@@ -1,20 +1,20 @@
-# 🌾 Projeto de Análise Exploratória de Dados do Agronegócio Brasileiro
+#  Projeto de Análise Exploratória de Dados do Agronegócio Brasileiro
 
-## 🎯 Objetivo
+##  Objetivo
 
 Este projeto tem como foco uma **análise estatística exploratória** da produção agrícola brasileira, com destaque para o **Rendimento Médio da Produção (Kg/ha)** nos anos de **2022 e 2023**.  
 O intuito é identificar padrões, variações regionais e fatores que impactam a produtividade nos estados brasileiros.
 
 ---
 
-## 📊 Fonte dos Dados
+##  Fonte dos Dados
 
 Os dados utilizados são provenientes da base oficial do **SIDRA/IBGE**:  
 🔗 [Tabela 1612 - SIDRA/IBGE](https://sidra.ibge.gov.br/tabela/1612)
 
 ---
 
-## 📁 Estrutura dos Dados
+##  Estrutura dos Dados
 
 | Coluna                                                     | Tipo                     | Descrição                                                |
 |------------------------------------------------------------|--------------------------|-----------------------------------------------------------|
@@ -28,7 +28,7 @@ Os dados utilizados são provenientes da base oficial do **SIDRA/IBGE**:
 
 ---
 
-## 🛠️ Etapas do Projeto
+## 🛠 Etapas do Projeto
 
 - **Importação dos dados** de uma planilha real contendo dados da produção agrícola.
 - **Tratamento e transformação** das variáveis de acordo com seu tipo (nominal, ordinal, contínua, etc.).
@@ -37,7 +37,7 @@ Os dados utilizados são provenientes da base oficial do **SIDRA/IBGE**:
 
 ---
 
-## 📊 Análise Estatística
+##  Análise Estatística
 
 ### 📌 Medidas de Tendência Central
 
@@ -56,7 +56,7 @@ Os dados utilizados são provenientes da base oficial do **SIDRA/IBGE**:
 
 ---
 
-## 📉 Análises Gráficas
+## Análises Gráficas
 
 - **Histograma**: Distribuição dos rendimentos médios.
 - **Boxplot Geral**: Visualização de dispersão e outliers no rendimento agrícola.
@@ -64,7 +64,7 @@ Os dados utilizados são provenientes da base oficial do **SIDRA/IBGE**:
 
 ---
 
-## 📚 Interpretação dos Resultados
+## Interpretação dos Resultados
 
 - A **média geral** do rendimento agrícola está em torno de **3.400 kg/ha**.
 - A **mediana próxima à média** indica distribuição aproximadamente simétrica.
@@ -74,7 +74,7 @@ Os dados utilizados são provenientes da base oficial do **SIDRA/IBGE**:
 
 ---
 
-## 🧩 Fatores que Podem Explicar as Diferenças
+##  Fatores que Podem Explicar as Diferenças
 
 | Ano   | Fatores Possíveis                                                                 |
 |--------|-----------------------------------------------------------------------------------|
@@ -83,7 +83,7 @@ Os dados utilizados são provenientes da base oficial do **SIDRA/IBGE**:
 
 ---
 
-## ✅ Conclusão
+## Conclusão
 
 A análise revelou que o **rendimento médio da produção agrícola** é um excelente indicador de **eficiência e produtividade** no campo.  
 Além disso, mostrou como **fatores externos** — climáticos, econômicos e tecnológicos — impactam a produção entre os estados.  
