@@ -28,7 +28,7 @@ Os dados utilizados são provenientes da base oficial do **SIDRA/IBGE**:
 
 ---
 
-## 🛠 Etapas do Projeto
+## Etapas do Projeto
 
 - **Importação dos dados** de uma planilha real contendo dados da produção agrícola.
 - **Tratamento e transformação** das variáveis de acordo com seu tipo (nominal, ordinal, contínua, etc.).
