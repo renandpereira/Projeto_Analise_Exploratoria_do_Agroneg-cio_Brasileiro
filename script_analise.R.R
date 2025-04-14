@@ -1,11 +1,5 @@
 # Projeto de Análise de Dados - Agronegócio Brasileiro
 
-# Alunos:
-# Renan Pereira      | RM: 566175
-# Lucian Binner      | RM: 563350
-# Deivisson Lima     | RM: 565095
-# Omar Calil         | RM: 566175
-# Paulo Henrique     | RM: 564262
 
 # Fonte dos dados: https://sidra.ibge.gov.br/tabela/1612
 
