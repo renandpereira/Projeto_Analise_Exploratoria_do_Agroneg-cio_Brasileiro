@@ -1,173 +1,114 @@
-# Projeto de Análise Exploratória de Dados do Agronegócio Brasileiro
+# 🌾 Projeto de Análise Exploratória de Dados do Agronegócio Brasileiro
 
 ## 🎯 Objetivo
 
-O objetivo deste projeto é realizar uma análise estatística exploratória da produção agrícola brasileira, com foco no **Rendimento Médio da Produção (Kg/ha)** nos anos de 2022 e 2023. A intenção é compreender o comportamento da produtividade agrícola nos estados brasileiros e investigar fatores que possam influenciar seus resultados.
+Este projeto tem como foco uma **análise estatística exploratória** da produção agrícola brasileira, com destaque para o **Rendimento Médio da Produção (Kg/ha)** nos anos de **2022 e 2023**.  
+O intuito é identificar padrões, variações regionais e fatores que impactam a produtividade nos estados brasileiros.
 
 ---
 
 ## 📊 Fonte dos Dados
 
-Os dados foram obtidos diretamente do SIDRA/IBGE:  
-🔗 [https://sidra.ibge.gov.br/tabela/1612](https://sidra.ibge.gov.br/tabela/1612)
+Os dados utilizados são provenientes da base oficial do **SIDRA/IBGE**:  
+🔗 [Tabela 1612 - SIDRA/IBGE](https://sidra.ibge.gov.br/tabela/1612)
 
 ---
 
 ## 📁 Estrutura dos Dados
 
-As colunas disponíveis na base de dados são:
-
-- **Unidade da Federação** (Qualitativa nominal)  
-- **Ano** (Quantitativa discreta)  
-- **Área plantada (Hectares)** (Quantitativa contínua)  
-- **Área colhida (Hectares)** (Quantitativa contínua)  
-- **Quantidade produzida (Toneladas)** (Quantitativa contínua)  
-- **Rendimento médio da produção (Quilogramas por Hectare)** (Quantitativa contínua)  
-- **Nível tecnológico** (Qualitativa ordinal: Baixo, Médio, Alto)
+| Coluna                                                     | Tipo                     | Descrição                                                |
+|------------------------------------------------------------|--------------------------|-----------------------------------------------------------|
+| **Unidade da Federação**                                   | Qualitativa nominal      | Nome dos estados brasileiros                             |
+| **Ano**                                                    | Quantitativa discreta    | Ano de referência (2022 ou 2023)                         |
+| **Área plantada (Hectares)**                               | Quantitativa contínua    | Área total plantada por estado                           |
+| **Área colhida (Hectares)**                                | Quantitativa contínua    | Área efetivamente colhida                                |
+| **Quantidade produzida (Toneladas)**                       | Quantitativa contínua    | Total produzido em toneladas                             |
+| **Rendimento médio da produção (Quilogramas por Hectare)** | Quantitativa contínua    | Eficiência produtiva por hectare                         |
+| **Nível tecnológico**                                      | Qualitativa ordinal      | Classificação: Baixo, Médio ou Alto                      |
 
 ---
 
 ## 🛠️ Etapas do Projeto
 
-### 1. 📥 Importação dos Dados
+- **Importação dos dados** de uma planilha real contendo dados da produção agrícola.
+- **Tratamento e transformação** das variáveis de acordo com seu tipo (nominal, ordinal, contínua, etc.).
+- **Categorização de nível tecnológico** para facilitar análises comparativas.
+- **Validação da estrutura dos dados** antes das análises.
 
-```r
-library(readxl)
+---
 
-dados <- read_excel("C:/Users/IMILE-TI/Desktop/Projeto_Cap 7 - Decolando com ciências de dados/Base_Agronegocio_Dados_Reais.xlsx", 
-                    sheet = "Base_dados")
-# 1. Coluna "Unidade da Federação" para fator (qualitativa nominal)
-dados$`Unidade da Federação` <- as.factor(dados$`Unidade da Federação`)
+## 📊 Análise Estatística
 
-# 2. Coluna "Ano" para numérica (quantitativa discreta)
-dados$Ano <- as.numeric(dados$Ano)
+### 📌 Medidas de Tendência Central
 
-# 3. Colunas de áreas e produção para numéricas (quantitativas contínuas)
-dados$`Área plantada (Hectares)` <- as.numeric(dados$`Área plantada (Hectares)`)
-dados$`Área colhida (Hectares)` <- as.numeric(dados$`Área colhida (Hectares)`)
-dados$`Quantidade produzida (Toneladas)` <- as.numeric(dados$`Quantidade produzida (Toneladas)`)
+- **Média**: Valor médio de rendimento entre os estados.
+- **Mediana**: Valor central da distribuição.
+- **Moda**: Valor mais frequente de rendimento observado.
 
-# 4. Coluna "Rendimento médio da produção (Quilogramas por Hectare)" para numérica
-dados$`Rendimento médio da produção (Quilogramas por Hectare)` <- as.numeric(dados$`Rendimento médio da produção (Quilogramas por Hectare)`)
+### 📌 Medidas de Dispersão
 
-# 5. Coluna "Nível_tecnologico" para fator (qualitativa ordinal)
-dados$Nivel_tecnologico <- factor(dados$Nivel_tecnologico, levels = c("Baixo", "Médio", "Alto"), ordered = TRUE)
+- **Desvio Padrão e Variância**: Medem o grau de variação entre os estados.
+- **Amplitude**: Diferença entre maior e menor rendimento.
 
-# Verificar se deu bom
-str(dados)
-📊 Análise Estatística: Rendimento Médio (Kg/ha)
-A variável Rendimento Médio da Produção (Kg/ha) foi escolhida por representar o desempenho da produção agrícola ao longo do tempo e entre diferentes estados, permitindo identificar padrões, variações regionais e temporais.
+### 📌 Medidas Separatrizes
 
-📌 Medidas de Tendência Central
-r
-Copiar
-Editar
-# Média do rendimento
-media_rendimento <- mean(dados$`Rendimento médio da produção (Quilogramas por Hectare)`, na.rm = TRUE)
+- **Quartis e Percentis**: Indicadores que dividem os dados em partes para análise de distribuição.
 
-# Mediana
-mediana_rendimento <- median(dados$`Rendimento médio da produção (Quilogramas por Hectare)`, na.rm = TRUE)
+---
 
-# Moda
-moda_rendimento <- as.numeric(names(sort(table(dados$`Rendimento médio da produção (Quilogramas por Hectare)`), decreasing = TRUE )[1]))
-📌 Medidas de Dispersão
-r
-Copiar
-Editar
-# Desvio padrão
-desvio_padrao_rendimento <- sd(dados$`Rendimento médio da produção (Quilogramas por Hectare)`, na.rm = TRUE)
+## 📉 Análises Gráficas
 
-# Variância
-variancia_rendimento <- var(dados$`Rendimento médio da produção (Quilogramas por Hectare)`, na.rm = TRUE)
+- **Histograma**: Distribuição dos rendimentos médios.
+- **Boxplot Geral**: Visualização de dispersão e outliers no rendimento agrícola.
+- **Boxplot por Ano**: Comparação direta entre os anos de 2022 e 2023.
 
-# Amplitude
-amplitude_rendimento <- range(dados$`Rendimento médio da produção (Quilogramas por Hectare)`, na.rm = TRUE)
-📌 Medidas Separatrizes
-r
-Copiar
-Editar
-# Quartis
-quartis_rendimento <- quantile(dados$`Rendimento médio da produção (Quilogramas por Hectare)`, na.rm = TRUE) 
+---
 
-# Percentis
-percentis_rendimento <- quantile(dados$`Rendimento médio da produção (Quilogramas por Hectare)`, na.rm = TRUE)
-📉 Análises Gráficas
-📊 Histograma
-r
-Copiar
-Editar
-library(ggplot2)
+## 📚 Interpretação dos Resultados
 
-ggplot(dados, aes(x = `Rendimento médio da produção (Quilogramas por Hectare)`)) +
-  geom_histogram(binwidth = 100, fill = "lightblue", color = "black") +
-  labs(title = "Distribuição do Rendimento Médio (kg/ha)", x = "Rendimento Médio (kg/ha)", y = "Frequência") +
-  theme_minimal()
-📦 Boxplot Geral
-r
-Copiar
-Editar
-ggplot(dados, aes(y = `Rendimento médio da produção (Quilogramas por Hectare)`)) +
-  geom_boxplot(fill = "lightgreen", color = "black") +
-  labs(title = "Boxplot do Rendimento Médio (Kg/ha)", y = "Rendimento médio (Kg/ha)") +
-  theme_minimal()
-📦 Boxplot por Ano (2022 e 2023)
-r
-Copiar
-Editar
-ggplot(dados, aes(x = as.factor(Ano), y = `Rendimento médio da produção (Quilogramas por Hectare)`, fill = as.factor(Ano))) +
-  geom_boxplot(color = "black") +
-  labs(title = "Boxplot do Rendimento Médio por Ano", x = "Ano", y = "Rendimento Médio (kg/ha)") +
-  theme_minimal() +
-  scale_fill_manual(values = c("2022" = "yellow", "2023" = "blue"))
-📚 Interpretação dos Resultados
-A média geral do rendimento é em torno de 3.400 kg/ha.
+- A **média geral** do rendimento agrícola está em torno de **3.400 kg/ha**.
+- A **mediana próxima à média** indica distribuição aproximadamente simétrica.
+- Foram identificados **outliers** em estados específicos.
+- Em **2022**, houve maior variação nos rendimentos, sugerindo diferenças regionais mais acentuadas.
+- Em **2023**, os dados mostraram maior uniformidade e estabilidade.
 
-A mediana está próxima da média, o que indica distribuição levemente simétrica.
+---
 
-O boxplot geral revelou outliers em alguns estados.
+## 🧩 Fatores que Podem Explicar as Diferenças
 
-Comparando os anos 2022 e 2023:
+| Ano   | Fatores Possíveis                                                                 |
+|--------|-----------------------------------------------------------------------------------|
+| 2022  | 🌧️ Eventos climáticos extremos<br>📈 Aumento dos custos de produção<br>📉 Desigualdade no acesso à tecnologia |
+| 2023  | 🌤️ Clima mais estável<br>🔧 Adoção tecnológica mais ampla<br>📊 Recuperação econômica mais homogênea |
 
-Em 2022, a dispersão foi maior, indicando maior variação regional.
+---
 
-Em 2023, os dados foram mais concentrados, mostrando maior estabilidade.
+## ✅ Conclusão
 
-🧩 Fatores que Podem Explicar as Diferenças
-A maior dispersão em 2022 pode estar relacionada a:
+A análise revelou que o **rendimento médio da produção agrícola** é um excelente indicador de **eficiência e produtividade** no campo.  
+Além disso, mostrou como **fatores externos** — climáticos, econômicos e tecnológicos — impactam a produção entre os estados.  
+Esses insights podem **guiar políticas públicas e investimentos privados** no setor do agronegócio.
 
-Eventos climáticos (como seca, excesso de chuva, La Niña ou El Niño)
+---
 
-Aumento nos custos de produção (fertilizantes e combustíveis)
+## 🔧 Ferramentas Utilizadas
 
-Dificuldades logísticas e acesso à tecnologia
+| Item            | Descrição                                   |
+|------------------|---------------------------------------------|
+| **Linguagem**    | R                                           |
+| **Pacotes**      | readxl, ggplot2                            |
+| **Técnicas**     | Estatística descritiva, Visualização gráfica |
 
-Políticas públicas locais ou regionais
+---
 
-Recuperação econômica pós-pandemia (desigual entre os estados)
+## ▶️ Como Executar
 
-✅ Conclusão
-A análise exploratória demonstrou a importância do rendimento médio da produção agrícola como indicador de eficiência no campo. A comparação entre os anos evidenciou como fatores externos (econômicos, climáticos e tecnológicos) afetam a produtividade. Esse tipo de estudo pode subsidiar decisões governamentais e privadas no setor agro.
+1. Clone ou baixe este repositório.
+2. Instale os pacotes `readxl` e `ggplot2` no R.
+3. Altere o caminho do arquivo `.xlsx` conforme sua máquina.
+4. Execute os scripts no **RStudio** para visualizar os resultados.
 
-🔧 Ferramentas Utilizadas
-Linguagem: R
-
-Pacotes: readxl, ggplot2
-
-Métodos: Estatística descritiva e visualização de dados
-
-Como Executar
-Faça o download/clonagem do projeto.
-
-Instale os pacotes necessários no R:
-
-r
-Copiar
-Editar
-install.packages("readxl")
-install.packages("ggplot2")
-Abra o script .R e altere o caminho para a planilha, se necessário.
-
-Execute os comandos no RStudio.
+---
 
 
 
